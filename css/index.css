@@ -122,13 +122,12 @@ nav .nav-list .nav-item:hover a {
 
 .banner {
     position: relative;
-    height: 450px;
 }
 
 .banner .banner-arrow {
     position: absolute;
-    width: 1200px;
-    height: 450px;
+    width: 100%;
+    height: 100%;
     z-index: 100;
 }
 
@@ -139,7 +138,7 @@ nav .nav-list .nav-item:hover a {
     width: 45px;
     background-color: #000000;
     position: absolute;
-    top: 175px;
+    top: 0px;
     opacity: .2;
     transition: all 0.5s ease;
 }
@@ -163,8 +162,6 @@ nav .nav-list .nav-item:hover a {
 .banner .banner-dot{
     position: absolute;  
     z-index: 100;
-    right: 12px;
-    bottom: 12px;
 }
 .banner .banner-dot .dot-item{
     width: 25px;
@@ -195,7 +192,18 @@ nav .nav-list .nav-item:hover a {
 .banner .banner-list .banner-item.active {
     opacity: 1;
 }
-
+.home-banner{
+    width: 1200px;
+    height: 450px;
+}
+.home-banner .banner-arrow .pre,
+.home-banner .banner-arrow .next {
+    top: 175px;
+}
+.home-banner .banner-dot{
+    right: 12px;
+    bottom: 12px;
+}
 .tool-box {
     height: 102px;
     background-color: #eeeeee;
