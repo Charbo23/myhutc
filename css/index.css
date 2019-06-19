@@ -64,23 +64,23 @@ textarea:focus {
     padding-bottom: 100px;
 }
 
-header {
+.header {
     width: 100%;
     height: 111px;
     padding-top: 15px;
     background-color: #ffffff;
 }
 
-header .header-logo {
+.header .header-logo {
     height: 81px;
     cursor: pointer;
 }
 
-header .xiaoxun {
+.header .xiaoxun {
     margin-right: 160px;
 }
 
-header .lang-change {
+.header .lang-change {
     font-size: 13px;
 }
 
@@ -726,7 +726,6 @@ header .lang-change {
     width: 215px;
     font-size: 14px;
     line-height: 30px;
-    padding-left: 5px;
     display: flex;
     flex-direction: row;
     align-items: center;
@@ -735,12 +734,71 @@ header .lang-change {
 .content-block .link-list li a{
     color: #555555;
 }
-.content-block .link-list li :before{
+.content-block .link-list li:before{
     content: '';
     display: inline-block;  
     height: 3px;
     width: 3px;
     margin-right: 5px;
     background-color: #adadad;
-vertical-align: middle;
+    vertical-align: middle;
+}
+.content-block .link-list .link-row{
+    width: 100%;
+}
+.footer{
+    margin-top: 40px;
+    background-color: #bf0000;
+    padding: 45px 0;
+}
+.footer .footer-content{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+.footer .footer-content .footer-box{
+   display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    
+}
+
+.footer .footer-content .footer-box a{
+    font-size: 13px;
+    line-height: 35px;
+    color: #ffffff;
+}
+.footer .footer-content .footer-box a:hover{
+    color: #ffffff !important;
+}
+.footer .footer-content .footer-left{
+    width: 360px;
+    display: flex;
+    flex-direction: column;
+}
+.footer .footer-content .footer-mid{
+    width: 380px;
+}
+.qrcode{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-right: 20px;
+}
+.qrcode img{
+    width: 90px;
+    height: 90px;
+}
+.qrcode span{
+    color: #ffffff;
+    font-size: 14px;
+    line-height: 30px;
+}
+.footer .footer-content .footer-right{
+    width: 900px;
+    height: 50px;
+}
+.footer .footer-content .footer-right a{
+    display: block;
+    padding: 0 10px;
 }

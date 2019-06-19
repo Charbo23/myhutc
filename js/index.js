@@ -122,9 +122,9 @@ $(function() {
         }else{
             $(this).siblings().removeClass('active');
             $(this).addClass('active');
-            // var href=$(this).attr('data-href');
-            // $('#'+href).siblings().removeClass('active');
-            // $('#'+href).addClass('active')
+            var href=$(this).attr('data-href');
+            $('#'+href).siblings().removeClass('active');
+            $('#'+href).addClass('active')
         }
     })
 })
