@@ -1,0 +1,336 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+ul {
+    list-style: none;
+}
+
+a {
+    text-decoration: none;
+    color: #333333;
+}
+
+a:hover {
+    color: #bf0000;
+}
+
+input:focus,
+textarea:focus {
+    outline: none;
+}
+
+.ellipsis {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.text-center {
+    text-align: center;
+}
+
+.text-red {
+    color: #bf0000;
+}
+
+.clearfix {
+    clear: both;
+}
+
+.pull-left {
+    float: left !important;
+}
+
+.pull-right {
+    float: right !important;
+}
+
+#container {
+    /*background: url("../images/body_bg.png") no-repeat center center;*/
+    padding-bottom: 100px;
+}
+
+header {
+    width: 100%;
+    height: 111px;
+    padding-top: 15px;
+    background-color: #ffffff;
+}
+
+header .header-logo {
+    height: 81px;
+    cursor: pointer;
+}
+
+header .xiaoxun {
+    margin-right: 160px;
+}
+
+
+.wrap {
+    width: 1200px;
+    margin: 0 auto;
+}
+
+nav {
+    background-color: #bf0000;
+    height: 56px;
+}
+
+nav .nav-list {
+    width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: row;
+
+}
+
+nav .nav-list .nav-item {
+
+    text-align: center;
+    line-height: 56px;
+    flex: 1;
+
+}
+
+nav .nav-list .nav-item a {
+    display: block;
+    font-size: 16px;
+    color: #ffffff;
+}
+
+nav .nav-list .nav-item:hover {
+
+    background-color: #ffffff;
+
+}
+
+nav .nav-list .nav-item:hover a {
+
+    color: #000000;
+
+}
+
+
+.banner {
+    position: relative;
+    height: 450px;
+}
+
+.banner .banner-arrow {
+    position: absolute;
+    width: 1200px;
+    height: 450px;
+    z-index: 100;
+}
+
+.banner .banner-arrow .pre,
+.banner .banner-arrow .next {
+    cursor: pointer;
+    height: 100px;
+    width: 45px;
+    background-color: #000000;
+    position: absolute;
+    top: 175px;
+    opacity: .2;
+    transition: all 0.5s ease;
+}
+
+.banner .banner-arrow .pre:hover,
+.banner .banner-arrow .next:hover {
+    opacity: .6;
+}
+
+.banner .banner-arrow .pre {
+    left: 0;
+    background-image: url(../images/arrow.png);
+    background-position: 90px 0;
+}
+
+.banner .banner-arrow .next {
+    right: 0;
+    background-image: url(../images/arrow.png);
+    background-position: 45px 0;
+}
+.banner .banner-dot{
+    position: absolute;  
+    z-index: 100;
+    right: 12px;
+    bottom: 12px;
+}
+.banner .banner-dot .dot-item{
+    width: 25px;
+    height: 7px;
+    cursor: pointer;
+    background-color: #919191;
+    margin-right: 4px;
+    float: left;
+    opacity: .8;
+    transition: all 0.5s ease;
+}
+.banner .banner-dot .dot-item.active{
+    opacity: 1;
+    background-color: #bf0000;
+
+}
+.banner .banner-list{
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+.banner .banner-list .banner-item {
+    position: absolute;
+    opacity: 0;
+    transition: all 1s ease;
+}
+
+.banner .banner-list .banner-item.active {
+    opacity: 1;
+}
+
+.tool-box {
+    height: 102px;
+    background-color: #eeeeee;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.tool-box .tool-list {
+    width: 780px;
+    padding: 0 10px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.tool-box .tool-list .tool-item {
+    display: block;
+    flex: 1;
+}
+
+.tool-box .tool-list .tool-item .tool-item-link {
+    display: flex;
+    flex-direction: column;
+}
+
+.tool-box .tool-list .tool-item .tool-item-link span {
+    display: block;
+    text-align: center;
+
+}
+
+.tool-box .tool-list .tool-item .tool-item-link .tool-icon {
+    height: 45px;
+    margin-bottom: 6px;
+}
+
+.tool-box .tool-list .tool-item .tool-item-link .tool-icon-1 {
+    background: url("../images/tools/1.png") no-repeat center center;
+}
+
+.tool-box .tool-list .tool-item .tool-item-link .tool-icon-2 {
+    background: url("../images/tools/2.png") no-repeat center center;
+}
+
+.tool-box .tool-list .tool-item .tool-item-link .tool-icon-3 {
+    background: url("../images/tools/3.png") no-repeat center center;
+}
+
+.tool-box .tool-list .tool-item .tool-item-link .tool-icon-4 {
+    background: url("../images/tools/4.png") no-repeat center center;
+}
+
+.tool-box .tool-list .tool-item .tool-item-link .tool-icon-5 {
+    background: url("../images/tools/5.png") no-repeat center center;
+}
+
+.tool-box .tool-list .tool-item .tool-item-link .tool-icon-6 {
+    background: url("../images/tools/6.png") no-repeat center center;
+}
+
+.tool-box .tool-list .tool-item .tool-item-link .tool-icon-7 {
+    background: url("../images/tools/7.png") no-repeat center center;
+}
+
+.tool-box .tool-list .tool-item .tool-item-link .tool-icon-8 {
+    background: url("../images/tools/8.png") no-repeat center center;
+}
+
+.tool-box .search-box {
+    width: 410px;
+    border-left: 1px solid #d1d1d1;
+    padding: 0 20px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.tool-box .search-box .search-form {}
+
+.tool-box .search-box .search-form .search-input {
+    line-height: 46px;
+    border: none;
+    color: #666666;
+    padding-left: 10px;
+    width: 250px;
+    height: 46px;
+}
+
+.tool-box .search-box .search-form .search-button {
+    background: #bf0000;
+    text-align: center;
+    line-height: 46px;
+    color: #ffffff;
+    width: 100px;
+    border: none;
+    padding: 0;
+    cursor: pointer;
+    margin-left: 10px;
+}
+
+.news {
+    padding-top: 15px;
+}
+
+.news .news-row {}
+
+.news .news-row .news-title-box {
+    width: 100%;
+    height: 44px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid #bf0000;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: flex-end;
+}
+
+.news .news-row .news-title-box .title-main {
+    display: flex;
+    flex-direction: row;
+    align-items: flex-end;
+
+}
+
+.news .news-row .news-title-box .title-main .title-zh {
+    margin-right: 10px;
+}
+
+.news .news-row .news-title-box .title-main .title-en {
+    color: #808080;
+    font-style: italic;
+    font-size: 14px;
+}
+
+.news .news-row .news-title-box .title-more {
+    font-size: 12px;
+
+
+}
