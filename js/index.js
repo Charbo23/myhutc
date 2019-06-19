@@ -109,6 +109,22 @@ $(function() {
         }else{
             $(this).siblings().removeClass('active');
             $(this).addClass('active');
+            var href=$(this).attr('data-href');
+            $('#'+href).siblings().removeClass('active');
+            $('#'+href).addClass('active')
+        }
+    })
+
+    //底部选项卡切换
+    $('.nav-tab').on('click', '.tab-block', function(){
+        if($(this).hasClass('active')){
+            return;
+        }else{
+            $(this).siblings().removeClass('active');
+            $(this).addClass('active');
+            // var href=$(this).attr('data-href');
+            // $('#'+href).siblings().removeClass('active');
+            // $('#'+href).addClass('active')
         }
     })
 })
