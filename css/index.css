@@ -71,7 +71,9 @@ header .header-logo {
 header .xiaoxun {
     margin-right: 160px;
 }
-
+header .lang-change{
+    font-size: 13px;
+}
 
 .wrap {
     width: 1200px;

@@ -7,6 +7,7 @@ var bannerIndex = 0;
 var bannerList = document.querySelectorAll('.banner-item');
 var bannerDotList = document.querySelectorAll('.dot-item');
 var bannerDotTimer;
+var newIndex;
 $(function() {
     //日期加载
     $('.date').html('<div class="font1">' + date + '</div><div class="font2">' + month + '月' +
@@ -14,25 +15,24 @@ $(function() {
     $('.date').addClass('date-loaded');
 
     $('.pre').click(function() {
-        bannerList[bannerIndex].classList.remove('active');
-        bannerIndex--;
-        bannerIndex = bannerIndex < 0 ? 4 : bannerIndex;
-        bannerList[bannerIndex].classList.add('active');
+        
+        newIndex=bannerIndex-1;
+        newIndex = newIndex < 0 ? 4 : newIndex;
+       switchBanner(newIndex);
     })
     $('.next').click(function() {
-        bannerList[bannerIndex].classList.remove('active');
-        bannerIndex++;
-        bannerIndex = bannerIndex > 4 ? 0 : bannerIndex;
-        bannerList[bannerIndex].classList.add('active');
+        newIndex=bannerIndex+1;
+        newIndex = newIndex > 4 ? 0 : newIndex;
+        
+        switchBanner(newIndex);
     })
     $('.banner-dot').on('mouseover', '.dot-item', function() {
         var currentDot=this;
         bannerDotTimer = setTimeout(function() {
-            bannerList[bannerIndex].classList.remove('active');
-            bannerDotList[bannerIndex].classList.remove('active');
-            currentDot.classList.add('active');
-            bannerIndex = currentDot.getAttribute('data-index');
-            bannerList[bannerIndex].classList.add('active');
+            
+           
+            newIndex = parseInt(currentDot.getAttribute('data-index'));
+            switchBanner(newIndex);
         },200);
 
     })
@@ -40,4 +40,11 @@ $(function() {
         clearTimeout(bannerDotTimer);
 
     })
+    function switchBanner(newIndex){
+        bannerDotList[bannerIndex].classList.remove('active');
+        bannerList[bannerIndex].classList.remove('active');
+        bannerList[newIndex].classList.add('active');
+        bannerDotList[newIndex].classList.add('active');
+        bannerIndex=newIndex;
+    }
 })
