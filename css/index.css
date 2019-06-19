@@ -61,7 +61,7 @@ textarea:focus {
 
 #container {
     /*background: url("../images/body_bg.png") no-repeat center center;*/
-    padding-bottom: 100px;
+   
 }
 
 .header {
@@ -801,4 +801,13 @@ textarea:focus {
 .footer .footer-content .footer-right a{
     display: block;
     padding: 0 10px;
+}
+.copyright {
+    width: 900px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    padding: 5px 0;
+    font-size: 12px;
 }
