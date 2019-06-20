@@ -46,7 +46,7 @@ function autoSwitch(prefix, toAuto) {
 
 $(function() {
     autoSwitch('home', true);
-    // autoSwitch('news',true);
+    autoSwitch('news',true);
     //日期加载
     $('.date').html('<div class="date-top">' + date + '</div><div class="date-mid">' + month + '月' +
         '</div><div class="date-bottom">' + year + '</div>');
