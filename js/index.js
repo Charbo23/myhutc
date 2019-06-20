@@ -57,7 +57,7 @@ function autoSwitch(bannerId, isAuto, delayTime) {
         clearInterval(bannerVarList[bannerId]['bannerSwitchTimer']);
     }
 }
-
+//日期初始化函数
 function initDate() {
     var curDate = new Date();
     var year = curDate.getFullYear(); //获取完整的年份(4位,1970-????)
