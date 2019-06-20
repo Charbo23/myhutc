@@ -1,10 +1,10 @@
 var bannerVarList = new Array();
-
+//轮播图初始化函数
 function initBanner(bannerId, isAuto, delayTime) {
     bannerVarList[bannerId] = new Array();
     isAuto = isAuto ? isAuto : false;
     delayTime = delayTime ? delayTime : 5000;
-    autoSwitch(bannerId, isAuto,delayTime);
+    autoSwitch(bannerId, isAuto, delayTime);
     var banner = document.querySelector(bannerId);
     bannerVarList[bannerId]['curBannerIndex'] = 0;
     bannerVarList[bannerId]['bannerItemList'] = banner.querySelectorAll('.banner-item');
@@ -30,12 +30,11 @@ function initBanner(bannerId, isAuto, delayTime) {
     //鼠标悬停停止自动播放
     if (isAuto) {
         $(bannerId).on('mouseenter', function() {
-            autoSwitch(bannerId, false,delayTime);
+            autoSwitch(bannerId, false, delayTime);
         }).on('mouseleave', function() {
-            autoSwitch(bannerId, true,delayTime);
+            autoSwitch(bannerId, true, delayTime);
         });
     }
-
 }
 //轮播图切换函数
 function switchBanner(bannerId, targetIndex) {
@@ -49,7 +48,7 @@ function switchBanner(bannerId, targetIndex) {
     bannerVarList[bannerId]['curBannerIndex'] = targetIndex;
 }
 //自动轮播启停函数
-function autoSwitch(bannerId, isAuto,delayTime) {
+function autoSwitch(bannerId, isAuto, delayTime) {
     if (isAuto) {
         bannerVarList[bannerId]['bannerSwitchTimer'] = setInterval(function() {
             switchBanner(bannerId, bannerVarList[bannerId]['curBannerIndex'] + 1);
@@ -70,10 +69,11 @@ function initDate() {
     $('.date').addClass('date-loaded');
 }
 
+//文档载入完毕执行
 $(function() {
     //初始化轮播图
-    initBanner('.home-banner',true);
-    initBanner('.news-banner', true,8000);
+    initBanner('.home-banner', true);
+    initBanner('.news-banner', true, 8000);
     //初始化日期
     initDate();
     //新闻选项卡切换
