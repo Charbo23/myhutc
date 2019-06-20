@@ -1,170 +1,103 @@
-var curDate = new Date();
-var year = curDate.getFullYear(); //获取完整的年份(4位,1970-????)
-var month = ("0" + (curDate.getMonth() + 1)).slice(-2); //获取当前月份(01-12)
-var date = curDate.getDate(); //获取当前日(1-31)
-var str = "星期" + "日一二三四五六".charAt(new Date().getDay());
+var bannerVarList = new Array();
 
-//主轮播图变量
-var home_curBannerIndex = 0;
-var home_targetBannerIndex;
-var home_bannerDotTimer;
-var home_bannerSwitchTimer;
-var home_bannerList = document.querySelectorAll('.home-banner .banner-item');
-var home_bannerDotList = document.querySelectorAll('.home-banner .dot-item');
-
-//新闻轮播图变量
-var news_curBannerIndex = 0;
-var news_targetBannerIndex;
-var news_bannerDotTimer;
-var news_bannerSwitchTimer;
-var news_bannerList = document.querySelectorAll('.news-banner .banner-item');
-var news_bannerDotList = document.querySelectorAll('.news-banner .dot-item');
-
-function switchBanner(prefix, targetBannerIndex) {
-    var proxy_target = targetBannerIndex;
-    var proxy_cur = eval(prefix + '_curBannerIndex');
-    proxy_target = proxy_target < 0 ? 4 : proxy_target;
-    proxy_target = proxy_target > 4 ? 0 : proxy_target;
-    window[prefix + '_bannerDotList'][proxy_cur].classList.remove('active');
-    window[prefix + '_bannerList'][proxy_cur].classList.remove('active');
-    window[prefix + '_bannerList'][proxy_target].classList.add('active');
-    window[prefix + '_bannerDotList'][proxy_target].classList.add('active');
-    window[prefix + '_curBannerIndex'] = proxy_target;
-}
-
-function autoSwitch(prefix, toAuto) {
-    if (toAuto) {
-        window[prefix + '_bannerSwitchTimer'] = setInterval(function() {
-            switchBanner(prefix, eval(prefix + "_curBannerIndex") + 1);
-        }, 8000);
-    } else {
-        clearInterval(window[prefix + '_bannerSwitchTimer']);
+function initBanner(bannerId, isAuto, delayTime) {
+    bannerVarList[bannerId] = new Array();
+    isAuto = isAuto ? isAuto : false;
+    delayTime = delayTime ? delayTime : 5000;
+    autoSwitch(bannerId, isAuto,delayTime);
+    var banner = document.querySelector(bannerId);
+    bannerVarList[bannerId]['curBannerIndex'] = 0;
+    bannerVarList[bannerId]['bannerItemList'] = banner.querySelectorAll('.banner-item');
+    bannerVarList[bannerId]['bannerDotList'] = banner.querySelectorAll('.dot-item');
+    //左箭头
+    $(bannerId + ' .pre').on('click', function() {
+        switchBanner(bannerId, bannerVarList[bannerId]['curBannerIndex'] - 1);
+    });
+    //右箭头
+    $(bannerId + ' .next').on('click', function() {
+        switchBanner(bannerId, bannerVarList[bannerId]['curBannerIndex'] + 1);
+    });
+    //导航点
+    $(bannerId + ' .dot-item').on('mouseenter', function() {
+        var currentDot = this;
+        bannerVarList[bannerId]['bannerDotTimer'] = setTimeout(function() {
+            bannerVarList[bannerId]['targetBannerIndex'] = parseInt(currentDot.getAttribute('data-index'));
+            switchBanner(bannerId, bannerVarList[bannerId]['targetBannerIndex']);
+        }, 200);
+    }).on('mouseleave', function() {
+        clearTimeout(bannerVarList[bannerId]['bannerDotTimer']);
+    });
+    //鼠标悬停停止自动播放
+    if (isAuto) {
+        $(bannerId).on('mouseenter', function() {
+            autoSwitch(bannerId, false,delayTime);
+        }).on('mouseleave', function() {
+            autoSwitch(bannerId, true,delayTime);
+        });
     }
 
 }
-if (!("classList" in document.documentElement)) {
-    Object.defineProperty(HTMLElement.prototype, 'classList', {
-        get: function() {
-            var self = this;
-            function update(fn) {
-                return function(value) {
-                    var classes = self.className.split(/\s+/g),
-                        index = classes.indexOf(value);
-
-                    fn(classes, index, value);
-                    self.className = classes.join(" ");
-                }
-            }
-
-            return {
-                add: update(function(classes, index, value) {
-                    if (!~index) classes.push(value);
-                }),
-
-                remove: update(function(classes, index) {
-                    if (~index) classes.splice(index, 1);
-                }),
-
-                toggle: update(function(classes, index, value) {
-                    if (~index)
-                        classes.splice(index, 1);
-                    else
-                        classes.push(value);
-                }),
-
-                contains: function(value) {
-                    return !!~self.className.split(/\s+/g).indexOf(value);
-                },
-
-                item: function(i) {
-                    return self.className.split(/\s+/g)[i] || null;
-                }
-            };
-        }
-    });
+//轮播图切换函数
+function switchBanner(bannerId, targetIndex) {
+    var cur_index = bannerVarList[bannerId]['curBannerIndex'];
+    targetIndex = targetIndex < 0 ? 4 : targetIndex;
+    targetIndex = targetIndex > 4 ? 0 : targetIndex;
+    bannerVarList[bannerId]['bannerDotList'][cur_index].classList.remove('active');
+    bannerVarList[bannerId]['bannerItemList'][cur_index].classList.remove('active');
+    bannerVarList[bannerId]['bannerItemList'][targetIndex].classList.add('active');
+    bannerVarList[bannerId]['bannerDotList'][targetIndex].classList.add('active');
+    bannerVarList[bannerId]['curBannerIndex'] = targetIndex;
 }
-$(function() {
-    //开启自动轮播
-    autoSwitch('home', true);
-    autoSwitch('news',true);
-    //日期加载
+//自动轮播启停函数
+function autoSwitch(bannerId, isAuto,delayTime) {
+    if (isAuto) {
+        bannerVarList[bannerId]['bannerSwitchTimer'] = setInterval(function() {
+            switchBanner(bannerId, bannerVarList[bannerId]['curBannerIndex'] + 1);
+        }, delayTime);
+    } else {
+        clearInterval(bannerVarList[bannerId]['bannerSwitchTimer']);
+    }
+}
+
+function initDate() {
+    var curDate = new Date();
+    var year = curDate.getFullYear(); //获取完整的年份(4位,1970-????)
+    var month = ("0" + (curDate.getMonth() + 1)).slice(-2); //获取当前月份(01-12)
+    var date = curDate.getDate(); //获取当前日(1-31)
+    var str = "星期" + "日一二三四五六".charAt(new Date().getDay());
     $('.date').html('<div class="date-top">' + date + '</div><div class="date-mid">' + month + '月' +
         '</div><div class="date-bottom">' + year + '</div>');
     $('.date').addClass('date-loaded');
+}
 
-    //主轮播图
-    $('.home-banner .pre').click(function() {
-
-        switchBanner('home', home_curBannerIndex - 1);
-    })
-    $('.home-banner .next').click(function() {
-        switchBanner('home', home_curBannerIndex + 1);
-    })
-    $('.home-banner .banner-dot').on('mouseover', '.dot-item', function() {
-        var currentDot = this;
-        home_bannerDotTimer = setTimeout(function() {
-            home_targetBannerIndex = parseInt(currentDot.getAttribute('data-index'));
-            switchBanner('home', home_targetBannerIndex);
-        }, 200);
-
-    })
-    $('.home-banner .banner-dot').on('mouseleave', '.dot-item', function() {
-        clearTimeout(home_bannerDotTimer);
-    })
-    $('#container').on('mouseover', '.home-banner', function() {
-        autoSwitch('home', false);
-    })
-    $('#container').on('mouseleave', '.home-banner', function() {
-        autoSwitch('home', true);
-    })
-    //新闻轮播图
-    $('.news-banner .pre').click(function() {
-        switchBanner('news', news_curBannerIndex - 1);
-    })
-    $('.news-banner .next').click(function() {
-        switchBanner('news', news_curBannerIndex + 1);
-    })
-    $('.news-banner .banner-dot').on('mouseover', '.dot-item', function() {
-        var currentDot = this;
-        news_bannerDotTimer = setTimeout(function() {
-            news_targetBannerIndex = parseInt(currentDot.getAttribute('data-index'));
-            switchBanner('news', news_targetBannerIndex);
-        }, 200);
-
-    })
-    $('.news-banner .banner-dot').on('mouseleave', '.dot-item', function() {
-        clearTimeout(news_bannerDotTimer);
-    })
-    $('#container').on('mouseover', '.news-banner', function() {
-        autoSwitch('news', false);
-    })
-    $('#container').on('mouseleave', '.news-banner', function() {
-        autoSwitch('news', true);
-    })
-
+$(function() {
+    //初始化轮播图
+    initBanner('.home-banner',true);
+    initBanner('.news-banner', true,8000);
+    //初始化日期
+    initDate();
     //新闻选项卡切换
-    $('.title-main').on('click', '.title-tab', function(){
-        if($(this).hasClass('active')){
+    $('.title-main').on('click', '.title-tab', function() {
+        if ($(this).hasClass('active')) {
             return;
-        }else{
+        } else {
             $(this).siblings().removeClass('active');
             $(this).addClass('active');
-            var href=$(this).attr('data-href');
-            $('#'+href).siblings().removeClass('active');
-            $('#'+href).addClass('active')
+            var href = $(this).attr('data-href');
+            $('#' + href).siblings().removeClass('active');
+            $('#' + href).addClass('active')
         }
     })
-
     //底部选项卡切换
-    $('.nav-tab').on('click', '.tab-block', function(){
-        if($(this).hasClass('active')){
+    $('.nav-tab').on('click', '.tab-block', function() {
+        if ($(this).hasClass('active')) {
             return;
-        }else{
+        } else {
             $(this).siblings().removeClass('active');
             $(this).addClass('active');
-            var href=$(this).attr('data-href');
-            $('#'+href).siblings().removeClass('active');
-            $('#'+href).addClass('active')
+            var href = $(this).attr('data-href');
+            $('#' + href).siblings().removeClass('active');
+            $('#' + href).addClass('active')
         }
     })
 })
