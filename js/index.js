@@ -1,23 +1,29 @@
 var bannerVarList = new Array();
 //轮播图初始化函数
 function initBanner(bannerId, isAuto, delayTime) {
-    bannerVarList[bannerId] = new Array();
+    var banner = document.querySelector(bannerId);
+    if (!banner) {
+        return;
+    }
     isAuto = isAuto ? isAuto : false;
     delayTime = delayTime ? delayTime : 5000;
+    bannerVarList[bannerId] = new Array();
+    
+    
     autoSwitch(bannerId, isAuto, delayTime);
-    var banner = document.querySelector(bannerId);
+    
     bannerVarList[bannerId]['curBannerIndex'] = 0;
     bannerVarList[bannerId]['bannerItemList'] = banner.querySelectorAll('.banner-item');
     bannerVarList[bannerId]['bannerDotList'] = banner.querySelectorAll('.dot-item');
-    //左箭头
+    //轮播图左箭头事件绑定
     $(bannerId + ' .pre').on('click', function() {
         switchBanner(bannerId, bannerVarList[bannerId]['curBannerIndex'] - 1);
     });
-    //右箭头
+    //轮播图右箭头事件绑定
     $(bannerId + ' .next').on('click', function() {
         switchBanner(bannerId, bannerVarList[bannerId]['curBannerIndex'] + 1);
     });
-    //导航点
+    //轮播图导航点事件绑定
     $(bannerId + ' .dot-item').on('mouseenter', function() {
         var currentDot = this;
         bannerVarList[bannerId]['bannerDotTimer'] = setTimeout(function() {
@@ -27,7 +33,7 @@ function initBanner(bannerId, isAuto, delayTime) {
     }).on('mouseleave', function() {
         clearTimeout(bannerVarList[bannerId]['bannerDotTimer']);
     });
-    //鼠标悬停停止自动播放
+    //自动播放事件绑定
     if (isAuto) {
         $(bannerId).on('mouseenter', function() {
             autoSwitch(bannerId, false, delayTime);
