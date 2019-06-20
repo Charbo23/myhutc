@@ -1,7 +1,7 @@
-var myDate = new Date();
-var year = myDate.getFullYear(); //获取完整的年份(4位,1970-????)
-var month = ("0" + (myDate.getMonth() + 1)).slice(-2); //获取当前月份(01-12)
-var date = myDate.getDate(); //获取当前日(1-31)
+var curDate = new Date();
+var year = curDate.getFullYear(); //获取完整的年份(4位,1970-????)
+var month = ("0" + (curDate.getMonth() + 1)).slice(-2); //获取当前月份(01-12)
+var date = curDate.getDate(); //获取当前日(1-31)
 var str = "星期" + "日一二三四五六".charAt(new Date().getDay());
 
 //主轮播图变量
@@ -23,7 +23,6 @@ var news_bannerDotList = document.querySelectorAll('.news-banner .dot-item');
 function switchBanner(prefix, targetBannerIndex) {
     var proxy_target = targetBannerIndex;
     var proxy_cur = eval(prefix + '_curBannerIndex');
-    console.log(proxy_target, proxy_cur);
     proxy_target = proxy_target < 0 ? 4 : proxy_target;
     proxy_target = proxy_target > 4 ? 0 : proxy_target;
     window[prefix + '_bannerDotList'][proxy_cur].classList.remove('active');
@@ -43,8 +42,49 @@ function autoSwitch(prefix, toAuto) {
     }
 
 }
+if (!("classList" in document.documentElement)) {
+    Object.defineProperty(HTMLElement.prototype, 'classList', {
+        get: function() {
+            var self = this;
+            function update(fn) {
+                return function(value) {
+                    var classes = self.className.split(/\s+/g),
+                        index = classes.indexOf(value);
 
+                    fn(classes, index, value);
+                    self.className = classes.join(" ");
+                }
+            }
+
+            return {
+                add: update(function(classes, index, value) {
+                    if (!~index) classes.push(value);
+                }),
+
+                remove: update(function(classes, index) {
+                    if (~index) classes.splice(index, 1);
+                }),
+
+                toggle: update(function(classes, index, value) {
+                    if (~index)
+                        classes.splice(index, 1);
+                    else
+                        classes.push(value);
+                }),
+
+                contains: function(value) {
+                    return !!~self.className.split(/\s+/g).indexOf(value);
+                },
+
+                item: function(i) {
+                    return self.className.split(/\s+/g)[i] || null;
+                }
+            };
+        }
+    });
+}
 $(function() {
+    //开启自动轮播
     autoSwitch('home', true);
     autoSwitch('news',true);
     //日期加载
